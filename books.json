@@ -1,0 +1,44 @@
+[
+    {
+        "title": "Pride and Prejudice",
+        "author": "Jane Austen",
+        "status": "read",
+        "rating": 5
+    },
+    {
+        "title": "Frankenstein",
+        "author": "Mary Shelley",
+        "status": "read",
+        "rating": 4
+    },
+    {
+        "title": "Dracula",
+        "author": "Bram Stoker",
+        "status": "read",
+        "rating": 4
+    },
+    {
+        "title": "Jane Eyre",
+        "author": "Charlotte Brontë",
+        "status": "read",
+        "rating": 5
+    },
+    {
+        "title": "Moby-Dick",
+        "author": "Herman Melville",
+        "status": "reading",
+        "rating": null
+    },
+    {
+        "title": "Great Expectations",
+        "author": "Charles Dickens",
+        "status": "to-read",
+        "rating": null
+    },
+    {
+        "title": "The Picture of Dorian Gray",
+        "author": "Oscar Wilde",
+        "status": "to-read",
+        "rating": null
+    }
+]
