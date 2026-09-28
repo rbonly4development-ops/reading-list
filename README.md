@@ -8,3 +8,5 @@ Run it locally:
     python reading_list.py
 
 The page is written to site/index.html.
+
+Added first workflow in .github/workflows/hello.yaml
