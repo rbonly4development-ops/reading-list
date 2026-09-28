@@ -4,7 +4,7 @@ on: push
 
 jobs:
   say-hello:
-    runs-on: ubuntu-latest
+runs-on: ubuntu-latest
     steps:
       - name: Say hello
         run: echo "Hello from a GitHub-hosted machine!"
@@ -19,9 +19,6 @@ jobs:
       
       - name: Check out the repository
         uses: actions/checkout@v6
-
-      - name: Read a file that does not exist
-        run: cat does-not-exist.txt
 
       - name: list files (after checkout)
         run: ls -la
