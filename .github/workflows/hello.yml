@@ -1,0 +1,18 @@
+name: Hello Actions
+
+on: push
+
+jobs:
+  say-hello:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say hello
+        run: echo "Hello from a GitHub-hosted machine!"
+
+      - name: Show the operating system
+        run: cat /etc/os-release
+
+      - name: List files (before checkout)
+        run: |
+          pwd
+          ls -la
