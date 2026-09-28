@@ -20,5 +20,8 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v6
 
+      - name: Read a file that does not exist
+        run: cat does-not-exist.txt
+
       - name: list files (after checkout)
         run: ls -la
