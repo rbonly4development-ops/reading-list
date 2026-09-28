@@ -16,3 +16,9 @@ jobs:
         run: |
           pwd
           ls -la
+      
+      - name: Check out the repository
+        uses: actions/checkout@v6
+
+      - name: list files (after checkout)
+        run: ls -la
