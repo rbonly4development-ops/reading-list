@@ -13,6 +13,10 @@ on:
         required: false
         default: 'World'
 
+  schedule:
+    - cron: '32 12 * * *'
+
+
 jobs:
   say-hello:
     runs-on: ubuntu-latest
