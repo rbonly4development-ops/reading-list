@@ -1,4 +1,4 @@
-from reading_list import compute_stats, sort_books, render_page
+from reading_list import compute_stats, render_page, sort_books
 
 SAMPLE = [
     {"title": "B Book", "author": "Zed", "status": "read", "rating": 4},
