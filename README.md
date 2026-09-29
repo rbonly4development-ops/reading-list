@@ -9,4 +9,4 @@ Run it locally:
 
 The page is written to site/index.html.
 
-Added first workflow in .github/workflows/hello.yaml
+Edited README.md
