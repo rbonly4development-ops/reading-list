@@ -1,6 +1,10 @@
 name: Hello Actions
 
-on: push
+on:
+  push:
+    branches: main
+    paths-ignore:
+      - 'README.md'
 
 jobs:
   say-hello:
