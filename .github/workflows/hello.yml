@@ -5,13 +5,20 @@ on:
     branches: main
     paths-ignore:
       - 'README.md'
+  
+  workflow_dispatch:
+    inputs:
+      greeting_name:
+        description: 'Name to include in the greeting'
+        required: false
+        default: 'World'
 
 jobs:
   say-hello:
     runs-on: ubuntu-latest
     steps:
       - name: Say hello
-        run: echo "Hello from a GitHub-hosted machine!"
+        run: echo "Hello, ${{ github.event.inputs.greeting_name || 'World' }}! This run was triggered by a ${{ github.event_name }} event."
 
       - name: Show the operating system
         run: cat /etc/os-release
