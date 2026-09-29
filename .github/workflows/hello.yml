@@ -35,5 +35,19 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v6
 
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+      
+      - name: Show tool versions
+        run: |
+          python --version
+          pytest --version
+          ruff --version
+
       - name: list files (after checkout)
         run: ls -la
