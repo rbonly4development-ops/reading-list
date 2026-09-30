@@ -1,10 +1,8 @@
 """Generate a static reading-list page from books.json."""
-
 import json
 from html import escape
 from pathlib import Path
 
-#Added Multiple jobs
 def load_books(path="books.json"):
     with open(path, encoding="utf-8") as f:
         return json.load(f)
