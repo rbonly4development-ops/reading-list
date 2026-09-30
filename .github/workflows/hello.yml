@@ -44,8 +44,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the repository
-        uses: actions/checkout@v6
 
       - name: Set up Python
         uses: actions/setup-python@v7
