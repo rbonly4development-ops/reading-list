@@ -5,10 +5,10 @@ on:
     branches: main
     paths-ignore:
       - 'README.md'
-
+  
   pull_request:
     branches: main
-
+    
   workflow_dispatch:
     inputs:
       greeting_name:
@@ -18,6 +18,7 @@ on:
 
   schedule:
     - cron: '35 12 * * *'
+
 
 jobs:
   say-hello:
@@ -37,6 +38,15 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v6
 
+      - name: List files (after checkout)
+        run: ls -la
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
@@ -48,14 +58,19 @@ jobs:
       - name: Run tests
         run: python -m pytest
 
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
       - name: Lint
         run: ruff check .
-
-      - name: Show tool versions
-        run: |
-          python --version
-          pytest --version
-          ruff --version
-
-      - name: list files (after checkout)
-        run: ls -la
