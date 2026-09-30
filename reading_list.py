@@ -1,4 +1,5 @@
 """Generate a static reading-list page from books.json."""
+
 import json
 from html import escape
 from pathlib import Path
