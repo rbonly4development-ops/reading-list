@@ -2,7 +2,6 @@
 import json
 from html import escape
 from pathlib import Path
-from itertools import batched
 
 def load_books(path="books.json"):
     with open(path, encoding="utf-8") as f:
@@ -50,7 +49,7 @@ th, td {{ border-bottom: 1px solid #ddd; padding: 0.4rem; text-align: left; }}
 </html>"""
 
 def group_books(books, size=3):
-    return [list(row) for row in batched(books, size)]
+    return [books[i:i + size] for i in range(0, len(books), size)]
 
 def build(output_dir="site"):
     books = load_books()
