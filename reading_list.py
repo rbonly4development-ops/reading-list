@@ -2,6 +2,7 @@
 import json
 from html import escape
 from pathlib import Path
+import time
 
 def load_books(path="books.json"):
     with open(path, encoding="utf-8") as f:
@@ -52,6 +53,7 @@ def group_books(books, size=3):
     return [books[i:i + size] for i in range(0, len(books), size)]
 
 def build(output_dir="site"):
+    time.sleep(5)
     books = load_books()
     out = Path(output_dir)
     out.mkdir(exist_ok=True)
