@@ -1,4 +1,4 @@
-from reading_list import compute_stats, render_page, sort_books
+from reading_list import compute_stats, group_books, render_page, sort_books
 
 SAMPLE = [
     {"title": "B Book", "author": "Zed", "status": "read", "rating": 4},
@@ -22,3 +22,6 @@ def test_render_page_contains_title():
 def test_render_page_escapes_html():
     tricky = [{"title": "<script>", "author": "X", "status": "read", "rating": 5}]
     assert "<script>" not in render_page(tricky)
+
+def test_group_books_makes_rows_of_three():
+    assert group_books(list(range(7)), 3) == [[0, 1, 2], [3, 4, 5], [6]]
