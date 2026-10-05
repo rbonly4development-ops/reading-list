@@ -61,6 +61,16 @@ jobs:
           echo "| Site Name (Shell Variable) | $SITE_NAME |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Deploy Enabled | ${{ vars.DEPLOY_ENABLED }} |" >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Print the secret
+        env: 
+          DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
+        run: echo "The secret is $DEMO_SECRET"
+      
+      - name: Print a transformed copy
+        env: 
+          DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
+        run: echo "$DEMO_SECRET" | sed 's/./& /g'
+
   test:
     runs-on: ${{ matrix.os }}
     strategy:
