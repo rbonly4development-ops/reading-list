@@ -163,3 +163,18 @@ jobs:
       - name: Deploy to Github Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  report:
+    needs: [test, lint, build, deploy]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write results to the job summary
+        run: |
+          echo "### Job Results" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Job | Status |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| test | ${{ needs.test.result }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| lint | ${{ needs.lint.result }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| build | ${{ needs.build.result }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| deploy | ${{ needs.deploy.result }} |" >> "$GITHUB_STEP_SUMMARY"
