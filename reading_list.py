@@ -2,6 +2,7 @@
 import json
 from html import escape
 from pathlib import Path
+#no deploy
 
 def load_books(path="books.json"):
     with open(path, encoding="utf-8") as f:
