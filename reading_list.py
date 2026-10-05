@@ -12,7 +12,7 @@ def compute_stats(books):
     read = [b for b in books if b["status"] == "read"]
     ratings = [b["rating"] for b in read if b.get("rating") is not None]
     average = round(sum(ratings) / len(ratings), 1) if ratings else None
-    return {"total": len(books), "read": len(read), "average_rating": average}
+    return {"total": len(books) + 1, "read": len(read), "average_rating": average}
 
 
 def sort_books(books):
