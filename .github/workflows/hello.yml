@@ -59,6 +59,7 @@ jobs:
           echo "| Runner OS | ${{ runner.os  }} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Site Name (Expression) | ${{ env.SITE_NAME}} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Site Name (Shell Variable) | $SITE_NAME |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Deploy Enabled | ${{ vars.DEPLOY_ENABLED }} |" >> "$GITHUB_STEP_SUMMARY"
 
   test:
     runs-on: ${{ matrix.os }}
@@ -155,7 +156,7 @@ jobs:
   
   deploy:
     needs: build
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && vars.DEPLOY_ENABLED == 'true'
     runs-on: ubuntu-latest
     permissions:
       pages: write
