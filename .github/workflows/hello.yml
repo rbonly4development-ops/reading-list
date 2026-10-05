@@ -61,6 +61,9 @@ jobs:
           echo "| Site Name (Shell Variable) | $SITE_NAME |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Deploy Enabled | ${{ vars.DEPLOY_ENABLED }} |" >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Print the secret using expression
+        run: echo "The sceret is ${{ secrets.DEMO_SECRET }}"
+
       - name: Print the secret
         env: 
           DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
