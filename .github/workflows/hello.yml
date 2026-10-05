@@ -176,6 +176,8 @@ jobs:
     needs: [test, lint, build, deploy]
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
+    permissions: 
+      issues: write
     steps:
       - name: Write results to the job summary
         run: |
