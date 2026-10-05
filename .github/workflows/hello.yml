@@ -5,7 +5,7 @@ on:
     branches: main
     paths-ignore:
       - 'README.md'
-  
+
   pull_request:
     branches: main
     
@@ -19,6 +19,8 @@ on:
   schedule:
     - cron: '35 12 * * *'
 
+env:
+  SITE_NAME: Reading List
 
 jobs:
   say-hello:
@@ -40,6 +42,19 @@ jobs:
 
       - name: List files (after checkout)
         run: ls -la
+
+      - name: Show Run Context
+        run: |
+          echo "### Run Context" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Field | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|">> "$GITHUB_STEP_SUMMARY"
+          echo "| Event | ${{ github.event_name }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Ref | ${{ github.ref_name }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Actor | ${{ github.actor }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Run Number | ${{ github.run_number }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Runner OS | ${{ runner.os  }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Site Name (Expression) | ${{ env.SITE_NAME}} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Site Name (Shell Variable) | $SITE_NAME |" >> "$GITHUB_STEP_SUMMARY"
 
   test:
     runs-on: ${{ matrix.os }}
@@ -70,6 +85,10 @@ jobs:
 
       - name: Run tests
         run: python -m pytest
+      
+      - name: Show where it failed
+        if: failure()
+        run: echo "Tests failed on ${{ matrix.os }} with Python ${{ matrix.python-version }}"
 
   lint:
     runs-on: ubuntu-latest
