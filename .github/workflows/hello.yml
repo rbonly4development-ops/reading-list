@@ -186,3 +186,10 @@ jobs:
           echo "| lint | ${{ needs.lint.result }} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| build | ${{ needs.build.result }} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| deploy | ${{ needs.deploy.result }} |" >> "$GITHUB_STEP_SUMMARY"
+      
+      - name: Open an issue when tests fail
+        if: needs.test.result == 'failure'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh issue create --title "Tests failed on ${{ github.ref_name }}" --body "Run ${{ github.run_number }} failed. See ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
