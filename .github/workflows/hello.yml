@@ -107,6 +107,8 @@ jobs:
   build:
     needs: [test, lint]
     runs-on: ubuntu-latest
+    outputs:
+      files: ${{ steps.measure.outputs.files }}
     steps:
       - name: Check out the repository
         uses: actions/checkout@v6
@@ -126,6 +128,10 @@ jobs:
       - name: Build the site
         if: steps.site-cache.outputs.cache-hit != 'true'
         run: python reading_list.py
+
+      - name: Measure the site
+        id: measure
+        run: echo "files=$(find site -type f | wc -l)" >> "$GITHUB_OUTPUT"
 
       - name: Upload site artifact
         uses: actions/upload-artifact@v7
@@ -195,6 +201,7 @@ jobs:
           echo "| build | ${{ needs.build.result }} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| staging | ${{ needs.staging.result }} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| deploy | ${{ needs.deploy.result }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| site files | ${{ needs.build.outputs.files }} |" >> "$GITHUB_STEP_SUMMARY"
       
       - name: Open an issue when tests fail
         if: needs.test.result == 'failure'
