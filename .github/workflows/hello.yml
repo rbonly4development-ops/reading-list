@@ -63,6 +63,7 @@ jobs:
           echo "| Site Name (Expression) | ${{ env.SITE_NAME}} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Site Name (Shell Variable) | $SITE_NAME |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Deploy Enabled | ${{ vars.DEPLOY_ENABLED }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Site Label | ${{ vars.SITE_LABEL}} |" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Print the secret
         env:
@@ -170,8 +171,16 @@ jobs:
         with:
           path: site/
   
-  deploy:
+  staging:
     needs: build
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - name: show staging config
+        run: echo "- staging uses SITE_LABEL = ${{ vars.SITE_LABEL }}" >> "$GITHUB_STEP_SUMMARY"
+  
+  deploy:
+    needs: [build, staging]
     if: github.event_name == 'push' && vars.DEPLOY_ENABLED == 'true'
     runs-on: ubuntu-latest
     permissions:
@@ -181,12 +190,15 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Show deployment config
+        run: echo "- deploy uses SITE_LABEL = ${{ vars.SITE_LABEL }}" >> "$GITHUB_STEP_SUMMARY"
+      
       - name: Deploy to Github Pages
         id: deployment
         uses: actions/deploy-pages@v5
 
   report:
-    needs: [test, lint, build, deploy]
+    needs: [test, lint, build, staging, deploy]
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     permissions: 
@@ -200,6 +212,7 @@ jobs:
           echo "| test | ${{ needs.test.result }} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| lint | ${{ needs.lint.result }} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| build | ${{ needs.build.result }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| staging | ${{ needs.staging.result }} |" >> "$GITHUB_STEP_SUMMARY"
           echo "| deploy | ${{ needs.deploy.result }} |" >> "$GITHUB_STEP_SUMMARY"
       
       - name: Open an issue when tests fail
