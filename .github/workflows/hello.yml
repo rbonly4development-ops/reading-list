@@ -77,6 +77,13 @@ jobs:
       
       - name: Print the secret directly
         run: echo "The secret is ${{ secrets.DEMO_SECRET }}"
+      
+      - name: Check the deploy token
+        env: 
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          if [ -n "$DEPLOY_TOKEN" ]; then STATE=set; else STATE=empty; fi
+          echo "- DEPLOY_TOKEN is $STATE" >> "$GITHUB_STEP_SUMMARY"
 
   test:
     runs-on: ${{ matrix.os }}
@@ -178,7 +185,14 @@ jobs:
     steps:
       - name: show staging config
         run: echo "- staging uses SITE_LABEL = ${{ vars.SITE_LABEL }}" >> "$GITHUB_STEP_SUMMARY"
-  
+
+      - name: Check the deploy token
+        env: 
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          if [ -n "$DEPLOY_TOKEN" ]; then STATE=set; else STATE=empty; fi
+          echo "- DEPLOY_TOKEN is $STATE" >> "$GITHUB_STEP_SUMMARY"
+
   deploy:
     needs: [build, staging]
     if: github.event_name == 'push' && vars.DEPLOY_ENABLED == 'true'
@@ -192,7 +206,14 @@ jobs:
     steps:
       - name: Show deployment config
         run: echo "- deploy uses SITE_LABEL = ${{ vars.SITE_LABEL }}" >> "$GITHUB_STEP_SUMMARY"
-      
+
+      - name: Check the deploy token
+        env: 
+          DEPLOY_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+        run: |
+          if [ -n "$DEPLOY_TOKEN" ]; then STATE=set; else STATE=empty; fi
+          echo "- DEPLOY_TOKEN is $STATE" >> "$GITHUB_STEP_SUMMARY"        
+
       - name: Deploy to Github Pages
         id: deployment
         uses: actions/deploy-pages@v5
