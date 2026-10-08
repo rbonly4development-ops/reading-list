@@ -82,6 +82,12 @@ jobs:
         run: |
           if [ -n "$DEPLOY_TOKEN" ]; then STATE="set"; else STATE="empty"; fi
           echo "- DEPLOY_TOKEN is $STATE" >> "$GITHUB_STEP_SUMMARY"
+      
+      - name: Announce the pull request
+        if: github.event.name == 'pull_request'
+        env:
+          DEMO_SECRET: ${{ secrets.DEMO_SECRET }}
+        run: echo "New pull request ${{ github.event.pull_request.title }}"
 
   test:
     uses: ./.github/workflows/test.yml
