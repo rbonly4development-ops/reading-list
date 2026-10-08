@@ -53,20 +53,20 @@ jobs:
 
       - name: Show Run Context
         run: |
-        {
-          echo "### Run Context"
-          echo "| Field | Value |"
-          echo "|---|---|"
-          echo "| Event | ${{ github.event_name }} |"
-          echo "| Ref | ${{ github.ref_name }} |"
-          echo "| Actor | ${{ github.actor }} |"
-          echo "| Run Number | ${{ github.run_number }} |"
-          echo "| Runner OS | ${{ runner.os  }} |"
-          echo "| Site Name (Expression) | ${{ env.SITE_NAME}} |"
-          echo "| Site Name (Shell Variable) | $SITE_NAME |"
-          echo "| Deploy Enabled | ${{ vars.DEPLOY_ENABLED }} |"
-          echo "| Site Label | ${{ vars.SITE_LABEL}} |"
-        } >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "### Run Context"
+            echo "| Field | Value |"
+            echo "|---|---|"
+            echo "| Event | ${{ github.event_name }} |"
+            echo "| Ref | ${{ github.ref_name }} |"
+            echo "| Actor | ${{ github.actor }} |"
+            echo "| Run Number | ${{ github.run_number }} |"
+            echo "| Runner OS | ${{ runner.os  }} |"
+            echo "| Site Name (Expression) | ${{ env.SITE_NAME}} |"
+            echo "| Site Name (Shell Variable) | $SITE_NAME |"
+            echo "| Deploy Enabled | ${{ vars.DEPLOY_ENABLED }} |"
+            echo "| Site Label | ${{ vars.SITE_LABEL}} |"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Print the secret
         env:
@@ -194,17 +194,17 @@ jobs:
     steps:
       - name: Write results to the job summary
         run: |
-        {
-          echo "### Job Results"
-          echo "| Job | Status |"
-          echo "|---|---|"
-          echo "| test | ${{ needs.test.result }} |"
-          echo "| lint | ${{ needs.lint.result }} |"
-          echo "| build | ${{ needs.build.result }} |" 
-          echo "| staging | ${{ needs.staging.result }} |"
-          echo "| deploy | ${{ needs.deploy.result }} |" 
-          echo "| site files | ${{ needs.build.outputs.files }} |" 
-        } >> "$GITHUB_STEP_SUMMARY"
+          {
+            echo "### Job Results"
+            echo "| Job | Status |"
+            echo "|---|---|"
+            echo "| test | ${{ needs.test.result }} |"
+            echo "| lint | ${{ needs.lint.result }} |"
+            echo "| build | ${{ needs.build.result }} |" 
+            echo "| staging | ${{ needs.staging.result }} |"
+            echo "| deploy | ${{ needs.deploy.result }} |" 
+            echo "| site files | ${{ needs.build.outputs.files }} |" 
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Open an issue when tests fail
         if: needs.test.result == 'failure'
