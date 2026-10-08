@@ -104,6 +104,9 @@ jobs:
 
       - name: Lint
         run: ruff check .
+      
+      - name: Lint the workflows
+        run: actionlint
     
   build:
     needs: [test, lint]
