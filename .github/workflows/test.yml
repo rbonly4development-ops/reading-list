@@ -33,7 +33,7 @@
                python-version: '3.14'
        steps:
          - name: Check out the repository
-           uses: actions/checkout@v6
+           uses: actions/checkout@v7
          - name: Set up Python and dependencies
            uses: ./.github/actions/setup-python-deps
            with:
